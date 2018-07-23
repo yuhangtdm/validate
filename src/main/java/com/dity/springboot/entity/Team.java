@@ -19,4 +19,9 @@ public class Team {
     public void setName(String name) {
         this.name = name;
     }
+
+    public static void main(String[] args) {
+        String str="s172";
+        System.out.println(str.substring(1,4));
+    }
 }

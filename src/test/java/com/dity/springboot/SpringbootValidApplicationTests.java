@@ -29,7 +29,12 @@ public class SpringbootValidApplicationTests {
 		for (ConstraintViolation<Emp> empConstraintViolation : validate) {
 			System.out.println(empConstraintViolation.getMessage());
 		}
+	}
 
+	@Test
+	public void testString(){
+		String str="s17209897656";
+		System.out.println(str.substring(1,str.length()));
 	}
 
 }
