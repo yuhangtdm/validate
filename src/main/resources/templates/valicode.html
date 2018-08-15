@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>验证码的应用</title>
+    <script th:src="@{webjars/jquery/3.3.1/jquery.js}"></script>
+    <script th:src="@{webjars/bootstrap/4.1.2/js/bootstrap.js}"></script>
+    <link th:href="@{webjars/bootstrap/4.1.2/css/bootstrap.css}"/>
+</head>
+<body>
+    <form>
+        <div class="form-group">
+            <label>手机号:</label>
+            <input type="text" class="form-control" name="phoneNo" placeholder="手机号"/>
+            <button type="button" id="send" class="btn btn-default">发送验证码</button>
+        </div>
+        <p style="color:red" id="tip"></p>
+        <div class="form-group">
+            <label>验证码:</label>
+            <input type="password" class="form-control" name="code"/>
+            <button type="button" id="conf" class="btn btn-default">确认</button><span style="color:green" id="suc"></span>
+        </div>
+    </form>
+</body>
+<script>
+    var time=60;
+    var fun;
+    function valiCode() {
+        $("#send").attr("disabled",true);
+        $("#send").text("请在"+(time--)+"秒后重新获取");
+        if(time==0){
+            $("#send").attr("disabled",false);
+            $("#send").text("发送验证码");
+            clearInterval(fun);
+        }
+    }
+    $(function () {
+        var phoneNo=$("#phoneNo").val();
+        var code=$("#code").val();
+        //点击发送验证码后按钮变灰 倒数60秒 显示 请58秒后重新获取
+        $("#send").click(function () {
+            $.ajax({
+                url:'sendCode?phoneNo='+phoneNo,
+                type:'get',
+                success:function (data) {
+                    if(data=='error'){
+                        $("#tip").text("验证码发送失败!请重新发送");
+                        clearInterval(fun);
+                    }
+                }
+            })
+            fun=setInterval(valiCode,1000);
+        });
+        $("#conf").click(function () {
+            $.ajax({
+                url:'confirm?phoneNo='+phoneNo+"&code="+code,
+                type:'get',
+                success:function (data) {
+                    if(data=='success'){
+                        $("#suc").text("验证成功!");
+                    }else {
+                        $("#suc").text("验证失败!");
+                        $("#suc").css("color","red");
+                    }
+                    clearInterval(fun);
+                }
+            })
+            fun=setInterval(valiCode,1000);
+        });
+    })
+
+</script>
+</html>

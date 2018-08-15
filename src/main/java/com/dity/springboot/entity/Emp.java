@@ -31,6 +31,7 @@ public class Emp {
 //    @Past(message = "生日只能是过去")
     private Date birth;
 
+
     /**
      * 引入对象时 要想对象的校验生效 需要加@Valid
      */

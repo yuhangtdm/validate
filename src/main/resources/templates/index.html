@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script th:src="@{webjars/jquery/3.3.1/jquery.js}"></script>
+    <script>
+        $(function () {
+            /**
+             * get请求时：
+             * data ： 字符串要按照key value 拼接的方式 如果按照对象的方式 则会自动拼接key-value
+             * "param=小糊涂" ===== {"param":小糊涂}
+             * dataType会自动根据响应来
+             */
+            $("#b1").click(function () {
+               $.ajax({
+                   url:'param1',
+                   type:'get',
+                   data: "param=小糊涂",
+//                   traditional:true,
+                   success:function (data) {
+                        alert(data);
+                   }
+               })
+            });
+            var param=[];
+            param.push("xixi");
+            param.push("hehe");
+            /**
+             * {"param":["哈哈","哈喽"]}
+             * 这种方式提交默认会报错 需要添加 traditional:true,
+             */
+            $("#b2").click(function () {
+                $.ajax({
+                    url:'param2',
+                    type:'get',
+                    data: {"param":param},
+                    traditional:true,
+                    success:function (data) {
+                        alert(data);
+                    }
+                })
+            });
+            /**
+             * 测试对象
+             * 后台直接用对象接收 传递时直接传递对象
+             */
+            var emps=[];
+            var emp={};
+            emp.name="张三";
+            emp.age=18;
+            emp.email="1456789@qq.com";
+            var emp2={};
+            emp2.name="李四";
+            emp2.age=20;
+            emp2.email="32453453@qq.com";
+            emps.push(emp);
+            emps.push(emp2);
+            $("#b3").click(function () {
+                $.ajax({
+                    url:'param3',
+                    type:'get',
+                    data: emp,
+//                    traditional:true,
+                    success:function (data) {
+                        alert(data.name);
+                    }
+                })
+            });
+
+            /**
+             * 传递对象数组时  必须指定json格式传递对象
+             * JSON.stringify 序列化对象
+             * 指定  contentType:"application/json",
+             * 后台用@RequestBody
+             */
+            $("#b4").click(function () {
+                $.ajax({
+                    url:'param4',
+                    type:'post',
+                    data: JSON.stringify(emps),
+                    contentType:"application/json",
+//                    traditional:true,
+                    success:function (data) {
+                        alert(data[1].name);
+                    }
+                })
+            });
+
+            $("#b5").click(function () {
+                $.ajax({
+                    url:'ajax',
+                    type:'get',
+                    data: {"ha":"万物生长"},
+//                    contentType:"application/json",
+//                    traditional:true,
+                    success:function (data) {
+                        alert(data);
+                    }
+                })
+            });
+
+
+
+        })
+    </script>
+</head>
+<body>
+    <h1>这是主题</h1>
+    <button id="b1">测试普通字符串</button><br/>
+    <button id="b2">测试数组</button><br/>
+    <button id="b3">测试对象</button><br/>
+    <button id="b4">测试对象集合</button><br/>
+    <button id="b5">测试servlet</button><br/>
+</body>
+</html>
