@@ -53,8 +53,10 @@
         });
         $("#conf").click(function () {
             $.ajax({
-                url:'confirm?phoneNo='+phoneNo+"&code="+code,
+                url:'confirm',
                 type:'get',
+                data:{"phoneNo":phoneNo,"code":code},
+                traditional:true,
                 success:function (data) {
                     if(data=='success'){
                         $("#suc").text("验证成功!");
