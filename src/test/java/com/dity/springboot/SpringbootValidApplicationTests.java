@@ -5,6 +5,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -21,7 +23,10 @@ public class SpringbootValidApplicationTests {
 	Validator validator;
 
 	@Autowired
-	StringRedisTemplate redisTemplate;
+	StringRedisTemplate stringRedisTemplate;
+
+	@Autowired
+	RedisTemplate redisTemplate;
 
 	@Test
 	public void contextLoads() {
@@ -43,6 +48,11 @@ public class SpringbootValidApplicationTests {
 
 	@Test
 	public void testRedis(){
-		redisTemplate.opsForValue().set("k1","v1");
+//		redisTemplate.opsForValue().set("sec_1001","10");
+		SetOperations<String,Object> setOperations = redisTemplate.opsForSet();
+
+
+		setOperations.add("sec_user", 1234);
 	}
+
 }

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>秒杀来袭</title>
+    <script th:src="@{webjars/jquery/3.3.1/jquery.js}"></script>
+    <script th:src="@{webjars/bootstrap/4.1.2/js/bootstrap.js}"></script>
+    <link th:href="@{webjars/bootstrap/4.1.2/css/bootstrap.css}"/>
+</head>
+<body>
+    <h1>iphoneX 1元秒杀</h1>
+    <button id="sec" class="btn btn-default">参与秒杀</button>
+</body>
+<script>
+    $(function () {
+        $("#sec").click(function () {
+           $.ajax({
+               url:'doSecKill?pid=1001',
+               type:'get',
+               success:function (data) {
+                   console.log(data);
+               }
+           })
+        });
+    })
+
+</script>
+</html>
