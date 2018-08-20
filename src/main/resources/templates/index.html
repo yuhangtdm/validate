@@ -7,16 +7,16 @@
     <script>
         $(function () {
             /**
-             * get请求时：
-             * data ： 字符串要按照key value 拼接的方式 如果按照对象的方式 则会自动拼接key-value
+             * get/post请求时：传递字符串参数时 可以采取两种方式
              * "param=小糊涂" ===== {"param":小糊涂}
-             * dataType会自动根据响应来
+             * 多个参数都可以扩展 其他类型的也可以转换
              */
+            var ss='用户名';
             $("#b1").click(function () {
                $.ajax({
                    url:'param1',
-                   type:'get',
-                   data: "param=小糊涂",
+                   type:'post',
+                   data: {"param":"哈哈"},
 //                   traditional:true,
                    success:function (data) {
                         alert(data);

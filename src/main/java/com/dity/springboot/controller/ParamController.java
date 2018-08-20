@@ -22,9 +22,9 @@ public class ParamController {
 
     @RequestMapping(value = "param1")
     @ResponseBody
-    public String param1(String param){
+    public String param1(@RequestParam  String param,@RequestParam Integer param2){
         System.out.println(param);
-        return "success"+param;
+        return "success"+param+" "+param2;
     }
 
     @RequestMapping(value = "param2")
