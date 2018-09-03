@@ -15,6 +15,11 @@ import java.util.List;
 public class ParamController {
 
 
+    @RequestMapping(value = "dict")
+    public String dict(){
+        return "dict";
+    }
+
     @RequestMapping(value = "index")
     public String index(){
         return "index";
