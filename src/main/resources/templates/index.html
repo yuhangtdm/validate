@@ -100,6 +100,62 @@
                 })
             });
 
+            var obj={};
+            obj.name="测试";
+            var loves=[];
+            loves.push("乒乓球");
+            loves.push("羽毛球");
+            obj.loves=loves;
+            var team={
+                "name":"java开发一部"
+            };
+            var women=[];
+            var w1={
+                "name":"杨贵妃"
+            }
+            var w2={
+                "name":"林黛玉"
+            }
+             women.push(w1);
+             women.push(w2);
+             obj.team=team;
+             obj.women=women;
+
+
+            $("#b6").click(function () {
+                $.ajax({
+                    url:'param5',
+                    type:'post',
+                    data: JSON.stringify(obj),
+//                    traditional:true,
+                    contentType:'application/json',
+                    success:function (data) {
+                        console.log(data);
+                    }
+                })
+            });
+
+
+            $("#b7").click(function () {
+                var obj=$("#user").serialize();
+                console.log(obj)
+                $.ajax({
+                    url:'param5',
+                    type:'post',
+                    data: obj,
+                    traditional:true,
+//                    contentType:'application/json',
+                    success:function (data) {
+                        console.log(data);
+                    }
+                })
+            });
+
+            $("input[name='loves[]']").each(function () {
+                alert($(this));
+
+            })
+
 
 
         })
@@ -112,5 +168,24 @@
     <button id="b3">测试对象</button><br/>
     <button id="b4">测试对象集合</button><br/>
     <button id="b5">测试servlet</button><br/>
+    <button id="b6">测试复杂bean</button><br/>
+
+    表单测试复杂类型:<br>
+    <form method="post" id="user" action="/param5">
+        <input type="hidden" name="id" />
+        姓名:<input type="text" name="name"><br>
+        爱好:
+        <input type="checkbox" name="loves[]" value="写作">写作
+        <input type="checkbox" name="loves[]" value="发呆">发呆
+        <input type="checkbox" name="loves[]" value="音乐">音乐<br>
+        班级:
+        <input type="team.name" /><br>
+        女人:
+        <input type="women.name" />
+        <input type="women.name" />
+        <input type="women.name" />
+        <input type="submit" value="提交">
+    </form>
+    <br/><button id="b7">测试表单bean</button><br/>
 </body>
 </html>

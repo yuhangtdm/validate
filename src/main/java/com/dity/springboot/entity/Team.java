@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
  * @Date:2018/7/23
  */
 public class Team {
-    @NotBlank(message = "组名不能为空")
+//    @NotBlank(message = "组名不能为空")
     private String name;
 
     public String getName() {

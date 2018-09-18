@@ -1,6 +1,7 @@
 package com.dity.springboot.controller;
 
 import com.dity.springboot.entity.Emp;
+import com.dity.springboot.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,6 +49,12 @@ public class ParamController {
     @ResponseBody
     public List<Emp> param4(@RequestBody List<Emp> emps){
         return emps;
+    }
+
+    @RequestMapping(value = "param5")
+    @ResponseBody
+    public User param5( User user){
+        return user;
     }
 
 }
